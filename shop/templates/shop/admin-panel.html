@@ -1,0 +1,103 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>kinder-shop</title>
+    <style>
+        body {
+            background-color: #f2d3c1; /* Pastel background color */
+            margin: 0;
+            padding: 0;
+        }
+        
+        header {
+            background-color: #ffffff; /* White header background */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+        }
+
+        #logo {
+            {% comment %} flex: 1; /* Takes up left space in the header */ {% endcomment %}
+        }
+
+        #logo img {
+            max-width: 50px; /* Adjust the width as needed */
+        }
+
+        #username{
+            padding: 10px;
+        }
+
+        h1 {
+            flex: 1; /* Takes up the remaining space in the header */
+            text-align: center;
+        }
+
+        #login-button {
+            text-decoration: none;
+            background-color: #ff6347; /* Red button background color */
+            color: #fff; /* Button text color */
+            padding: 10px 20px;
+            border-radius: 5px;
+        }
+
+        #orders {
+            margin: 20px auto;
+            text-align: center;
+        }
+
+        table {
+            width: 80%;
+            border-collapse: collapse;
+            margin: 0 auto;
+        }
+
+        th, td {
+            border: 1px solid #ccc;
+            padding: 10px;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }   
+    </style>
+</head>
+<body>
+    <header>
+        <div id="logo">
+            <img src="{% static 'shop/img/logo.png' %}" alt="Kinder Shop Logo">
+        </div>
+        <h1>kinder-shop</h1>
+        {% if user.is_authenticated %}
+            <a href="{% url 'main' %}" id="login-button">Личный кабинет</a>
+            <p id="username">Добро пожаловать, <b>{{ user.username }}!</b></p>
+            <a href="custom_logout/" id="login-button">Выход</a>
+        {% else %}
+            <a href="accounts/login" id="login-button">Админ-панель</a>
+        {% endif %}
+        
+    </header>
+    <div id="orders">
+        <h2>Заказы</h2>
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Дата</th>
+                <th>Контакты</th>
+                <th>Цена</th>
+            </tr>
+            {% for order in orders %}
+            <tr>
+                <td>{{ order.id }}</td>
+                <td>{{ order.date }}</td>
+                <td>{{ order.contacts }}</td>
+                <td>{{ order.price }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+</body>
+</html>

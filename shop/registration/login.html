@@ -1,0 +1,67 @@
+{% load static%}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Login</title>
+    <style>
+        body {
+            background-color: #f2d3c1; /* Pastel background color */
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        #login-form {
+            background-color: #ffffff; /* White form background */
+            border-radius: 5px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            outline: none;
+        }
+
+        #login-button {
+            background-color: #ff6347; /* Red button background color */
+            color: #fff; /* Button text color */
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        #return-link {
+            text-decoration: none;
+            color: #333; /* Text color for the return link */
+        }
+    </style>
+</head>
+<body>
+    <div id="login-form">
+        <h2>Admin Login</h2>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.non_field_errors }}
+            <input type="text" name="username" placeholder="Username" required>
+            <br>
+            <input type="password" name="password" placeholder="Password" required>
+            <br>
+            {{ form.username.errors }}
+            {{ form.password.errors }}
+            <button type="submit" id="login-button">Login</button>
+        </form>
+        <p><a href="{% url 'main' %}" id="return-link">Return to the homepage</a></p>
+    </div>
+</body>
+</html>
